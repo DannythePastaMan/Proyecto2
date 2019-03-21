@@ -6,7 +6,9 @@ using namespace std;
 node *p = nullptr, *head = nullptr, *q = nullptr, *np = nullptr;
 int c = 0;
 
-node * create(int x, int y, int z, int cod)
+List::List(){}
+
+node *List::create(int x, int y, int z, int cod)
 {
 	np = new node;
 	np->year = x;
@@ -14,6 +16,7 @@ node * create(int x, int y, int z, int cod)
 	np->dia = z;
 	np->posarchivo = getbytes(cod);
 	np->next = nullptr;
+
 	if (c == 0)
 	{
 		head = np;
@@ -74,7 +77,8 @@ node * create(int x, int y, int z, int cod)
 	}
 	return np;
 }
-void traverse(int i)
+
+void List::traverse(int i)
 {
 	node *t = head;
 	int c = 0;

@@ -24,7 +24,7 @@ class BTreeNode {
 public:
 
 	int n;     // Número actual de llaves
-    BTreeNode(int _t, bool _leaf);   // Constructor
+    BTreeNode(int _t, bool _leaf, List *);   // Constructor
     // Una función de utilidad para insertar una nueva clave en el subárbol arraigado con
     // este nodo. El supuesto es que el nodo no debe estar lleno cuando esto
     // la función se llama

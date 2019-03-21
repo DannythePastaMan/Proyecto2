@@ -15,8 +15,15 @@ struct node
 	int posarchivo;
     node *next;
 	node *otralista;
+    
 };
 
-node *create(int x, int y, int z, int cod);
-void traverse(int i);
+class List
+{
+public:
+    List();
+    node *create(int x, int y, int z, int cod);
+    void traverse(int i);
+
+};
 #endif //PROYECTO2_LIST_H

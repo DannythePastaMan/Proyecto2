@@ -5,10 +5,11 @@
 using namespace std;
 
 // Constructor para la clase BTreeNode
-BTreeNode::BTreeNode(int t1, bool leaf1) {
+BTreeNode::BTreeNode(int t1, bool leaf1, List *list) {
 	// Copiar el grado mínimo dado y la propiedad de la hoja.
 	t = t1;
 	leaf = leaf1;
+    list = new List();
 
 	// Asignar memoria para el número máximo de claves posibles
 	// y punteros de niño
@@ -63,10 +64,13 @@ BTreeNode *BTreeNode::search(int k) {
 
 // La función principal que inserta una nueva clave en este B-Tree
 void BTree::insert(int k, int mont, int dia, int codigo) {
+
+    List *list = nullptr;
     // Si el árbol está vacío
     if (root == NULL) {
         // Asignar memoria para root
-        root = new BTreeNode(t, true);
+        list = new List();
+        root = new BTreeNode(t, true, list);
 		//root->keys2[0] = k;  // Insertar LLAVE
 		root->keys[0] = new node() ;
 		root->keys[0]->year = k;
@@ -78,17 +82,15 @@ void BTree::insert(int k, int mont, int dia, int codigo) {
     }
 	else if (root->keys[0]->year == k && root->keys[0]->mes == mont)
 	{
-		root->keys[0] = root->keys[0];
-		root->keys[0]->next = create(k, mont, dia, codigo);
-
-
+        list->create(k, mont, dia, codigo);
 	}
 	
 	else { // Si el árbol no está vacío
         // Si la raíz está llena, entonces el árbol crece en altura
         if (root->n == 2 * t - 1) {
             // Asignar memoria para la nueva raíz
-            BTreeNode *s = new BTreeNode(t, false);
+            list = new List();
+            BTreeNode *s = new BTreeNode(t, false, list);
 
             // Hacer la raíz vieja como hijo de la nueva raíz
             s->C[0] = root;
@@ -121,11 +123,11 @@ void BTreeNode::insertNonFull(int k, int mont, int dia, int codigo) {
     int i = n-1;
 
     // Si esto es un nodo hoja
-
+    List *list = new List();
 	if (keys[i]->year == k && keys[i]->mes == mont)
 	{
 		keys[i + 1] = keys[i];
-		keys[i + 1]->next = create(k, mont, dia, codigo);
+		keys[i + 1]->next = list->create(k, mont, dia, codigo);
 
 
 	}
@@ -219,7 +221,9 @@ void BTreeNode::insertNonFull(int k, int mont, int dia, int codigo) {
 void BTreeNode::splitChild(int i, BTreeNode *y) {
 	// Crear un nuevo nodo que va a almacenar (t-1) claves
 	// de y
-	BTreeNode *z = new BTreeNode(y->t, y->leaf);
+
+    List *list = new List();
+	BTreeNode *z = new BTreeNode(y->t, y->leaf, list);
 	z->n = t - 1;
 
 	// Copia las últimas (t-1) teclas de y a z

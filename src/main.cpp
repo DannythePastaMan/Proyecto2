@@ -17,6 +17,7 @@ int main(){
 	/*BTree * t = new BTree(max);
 */
 	BTree * t = new BTree(max);
+    List *l = new List();
 
 	cout << "Cuantos registros quiere: ";
 	cin >>	cant;
@@ -38,18 +39,29 @@ int main(){
 				t->insert(val,);*/
 
                 break;
+
             case 2:
+            {
                 cout<<"Elemento a buscar:";
                 cin >> val;
                 (t->search(val) != NULL)? cout << "\nExiste" : cout << "\nNo Existe";
                 cout << endl;
                 break;
+            }
+
             case 3:
+            {
+                int i = 0;
 				t->traverse();
+                l->traverse(i);
                 cout << endl;
                 break;
+            }
+
             default:
+            {
                 exit(0);
+            }
         }
         cout << endl;
     }
